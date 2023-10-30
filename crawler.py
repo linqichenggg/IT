@@ -47,7 +47,7 @@ for i in range(len(singles)):
     # 点击游戏链接
     singles[i].click()
 
-    # 获取游戏图像链接
+#划分本体与DLC
     try:
         name = driver.find_element(By.CLASS_NAME, 'apphub_AppName')
         print(name.text)
