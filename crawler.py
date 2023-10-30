@@ -40,11 +40,14 @@ search = WebDriverWait(driver, 10).until(
 search = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'responsive_search_name_combined'))
     )
+
 game = driver.find_element(By.CLASS_NAME, 'responsive_search_name_combined')
-# for game in games:
 game.click()
 search = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
 )
 img = driver.find_element(By.CLASS_NAME, 'game_header_image_full')
 print(img.get_attribute("src"))
+driver.back()
+time.sleep(3)
+
