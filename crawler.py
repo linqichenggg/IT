@@ -27,21 +27,24 @@ search = WebDriverWait(driver, 10).until(
 )
 
 
-# 获取游戏封面
-# games = driver.find_elements(By.CLASS_NAME, 'responsive_search_name_combined')
-# for game in games:
-#     game.click()
-#     search = WebDriverWait(driver, 10).until(
-#         EC.presence_of_element_located((By.XPATH, 'game_header_image_full'))
-#     )
-#     img = driver.find_element(By.XPATH, '//*[@id="gameHeaderImageCtn"]/img')
-#     print(img.get_attribute("src"))
-
 #获取游戏名
-for i in range(3):
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(5)
-names = driver.find_elements(By.CLASS_NAME, 'title')
-for name in names:
-    print(name.text)
+# for i in range(2):
+#     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+#     time.sleep(5)
+# names = driver.find_elements(By.CLASS_NAME, 'title')
+# for name in names:
+#     print(name.text)
 
+
+# 获取游戏封面
+search = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'responsive_search_name_combined'))
+    )
+game = driver.find_element(By.CLASS_NAME, 'responsive_search_name_combined')
+# for game in games:
+game.click()
+search = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
+)
+img = driver.find_element(By.CLASS_NAME, 'game_header_image_full')
+print(img.get_attribute("src"))
