@@ -22,7 +22,7 @@ element = WebDriverWait(driver, 10).until(
 )
 
 #进入“优惠”界面
-entry = driver.find_element(By.XPATH, '//*[@id="responsive_page_template_content"]/div[1]/div[2]/div[15]/div/div/a[2]')
+entry = driver.find_element(By.XPATH, '//*[@id="responsive_page_template_content"]/div[1]/div[2]/div[16]/div/div/a[2]')
 entry.click()
 #同样等待
 search = WebDriverWait(driver, 10).until(
@@ -30,13 +30,9 @@ search = WebDriverWait(driver, 10).until(
 )
 
 
-#获取游戏名
 for i in range(2):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(5)
-names = driver.find_elements(By.CLASS_NAME, 'title')
-for name in names:
-    print(name.text)
+    time.sleep(2)
 
 
 # 获取游戏封面
@@ -53,6 +49,9 @@ for i in range(len(singles)):
     img = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
     )
+    # 获取游戏名
+    name = driver.find_element(By.CLASS_NAME, 'apphub_AppName')
+    print(name.text)
     # 获取游戏图像链接
     img_src = img.get_attribute("src")
     print(img_src)
