@@ -29,32 +29,43 @@ search = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.XPATH, '//*[@id="term"]'))
 )
 
-
-for i in range(2):
+#翻页
+for i in range(1):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(2)
 
 
-# 获取游戏封面
+#等待
 search = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'responsive_search_name_combined'))
     )
 
+#获取
 singles = driver.find_elements(By.CLASS_NAME, 'search_result_row')
 for i in range(len(singles)):
     singles = driver.find_elements(By.CLASS_NAME, 'search_result_row')
     # 点击游戏链接
     singles[i].click()
-    # 等待游戏图像元素出现
-    img = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
-    )
-    # 获取游戏名
-    name = driver.find_element(By.CLASS_NAME, 'apphub_AppName')
-    print(name.text)
+
     # 获取游戏图像链接
-    img_src = img.get_attribute("src")
-    print(img_src)
+    try:
+        name = driver.find_element(By.CLASS_NAME, 'apphub_AppName')
+        print(name.text)
+        img = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
+        )
+        img = driver.find_element(By.CLASS_NAME, 'game_header_image_full')
+        img_src = img.get_attribute("src")
+        print(img_src)
+    except:
+        name = driver.find_element(By.XPATH, '//*[@id="tabletGrid"]/div[1]/div/div[1]/h2')
+        print(name.text)
+        img = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'package_header'))
+        )
+        img = img.find_element(By.XPATH, '//*[@id="package_header_container"]/img')
+        img_src = img.get_attribute("src")
+        print(img_src)
     # 返回到搜索结果页面
     driver.back()
 
