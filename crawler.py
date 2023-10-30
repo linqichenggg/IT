@@ -10,7 +10,10 @@ import wget
 
 # 进入Steam主页
 # browser = webdriver.Edge()
+option = webdriver.ChromeOptions()
+option.add_experimental_option("detach", True)
 driver = webdriver.Edge("C:/Program Files (x86)/Microsoft/Edge/Application/msedgedriver.exe")
+driver.maximize_window()
 driver.get("https://store.steampowered.com/")
 
 #等到网页出现“登录“字样（右上角），才进行下一步操作，防止在加载未结束时就进行读取
@@ -40,14 +43,16 @@ search = WebDriverWait(driver, 10).until(
 search = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, 'responsive_search_name_combined'))
     )
+singles = driver.find_elements(By.XPATH, '//*[@id="search_resultsRows"]/a[1]')
+for single in singles:
+    game = driver.find_element(By.CLASS_NAME, 'responsive_search_name_combined')
+    game.click()
+    search = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
+    )
+    img = driver.find_element(By.CLASS_NAME, 'game_header_image_full')
+    print(img.get_attribute("src"))
+    driver.back()
+    time.sleep(2)
 
-game = driver.find_element(By.CLASS_NAME, 'responsive_search_name_combined')
-game.click()
-search = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, 'game_header_image_full'))
-)
-img = driver.find_element(By.CLASS_NAME, 'game_header_image_full')
-print(img.get_attribute("src"))
-driver.back()
-time.sleep(3)
 
